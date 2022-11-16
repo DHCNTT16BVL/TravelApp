@@ -1,0 +1,13 @@
+module TravelApp
+{
+  interface Travel
+  {
+    string login(in string userName, in string pwd);
+    long register(in string userName, in string pwd);
+    long add(in string locationName, in string phonenumber, in string note);
+    long update(in long id, in string locationName, in string phonenumber, in string note );
+    long delete(in long id);
+    string find(in string locationName);
+    oneway void shutdown();
+  };
+};
