@@ -5,10 +5,10 @@
 package com.myteam.travel;
 
 import TravelApp.TravelPOA;
+import TravelApp.place;
+import TravelApp.province;
 import com.myteam.travel.dao.TbPlaceDao;
 import com.myteam.travel.model.ResPlace;
-import com.myteam.travel.model.TbPlace;
-import java.util.List;
 import org.omg.CORBA.ORB;
 
 /**
@@ -23,54 +23,39 @@ public class TravelImpl extends TravelPOA {
         orb = orb_val;
     }
 
-    /**
-     *
-     * @param userName
-     * @param pwd
-     */
     @Override
-    public String login(String userName, String pwd) {
-        return "login";
-    }
-
-    /**
-     *
-     * @param userName
-     * @param pwd
-     * @return
-     */
-    @Override
-    public int register(String userName, String pwd) {
-        return 1;
+    public boolean add(String placeName, String phone, String address, String info, int idProvince) {
+        return true;
     }
 
     @Override
-    public int add(String placeName, String phone, String address, String info, int idProvince) {
-        return 1;
+    public boolean delete(int id) {
+        return true;
     }
 
     @Override
-    public int delete(int id) {
-        return 1;
+    public boolean update(int id, String placeName, String phone, String address, String info, int idProvince) {
+        return true;
     }
 
     @Override
-    public int update(int id, String placeName, String phone, String address, String info, int idProvince) {
-        return 1;
+    public place findPlaceFromName(String name) {
+
+        return new place();
     }
 
     @Override
+    public province findProvince() {
+
+        return new province();
+    }
+
     public String find(int idProvince) {
         TbPlaceDao tbPlaceDao = new TbPlaceDao();
         ResPlace resPlace = tbPlaceDao.list();
 
         String result = resPlace.toJson().toString();
         return result;
-    }
-
-    // implement shutdown() method
-    public void shutdown() {
-        orb.shutdown(false);
     }
 
 }

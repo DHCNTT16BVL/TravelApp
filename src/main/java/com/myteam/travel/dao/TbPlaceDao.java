@@ -21,8 +21,10 @@ public class TbPlaceDao {
         ResPlace resPlace = new ResPlace();
         List<TbPlace> list = new LinkedList<>();
         String sql = "select * from tbPlace";
+        String sqlUpdate = "update tbPlace set phone = '02411112223' where id = 1";
         ResultSet rs = null;
         try {
+            int i = DBSource.runUpdate(sqlUpdate);
             rs = DBSource.runQuery(sql);
             while (rs.next()) {
                 TbPlace place = new TbPlace();
@@ -32,6 +34,7 @@ public class TbPlaceDao {
                 place.setAddress(rs.getString("address"));
                 place.setInfo(rs.getString("info"));
                 place.setIdProvince(rs.getInt("IdProvince"));
+                list.add(place);
             }
         } catch (Exception e) {
             e.printStackTrace();

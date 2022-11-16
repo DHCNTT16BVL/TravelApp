@@ -1,13 +1,23 @@
 module TravelApp
 {
+    struct place {
+    	long id_place;
+    	string name;
+        string phone;
+        string adress;
+        string infor;
+        long id_province; 
+    };
+    struct province {
+    	long id_province;
+    	string province;
+    };
     interface Travel
     {
-        string login(in string userName, in string pwd);
-        long register(in string userName, in string pwd);
-        long add(in string placeName, in string phone, in string address, in string info, in long idProvince);
-        long delete(in long id);
-        long update(in long id, in string placeName, in string phone, in string address, in string info, in long idProvince);
-        string find(in long idProvince);
-        oneway void shutdown();
+        boolean add(in string placeName, in string phone, in string address, in string info, in long idProvince);
+        boolean delete(in long id);
+        boolean update(in long id, in string placeName, in string phone, in string address, in string info, in long idProvince);
+        province findProvince();
+        place findPlaceFromName(in string name);
     };
 };

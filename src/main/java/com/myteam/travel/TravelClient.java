@@ -35,7 +35,7 @@ public class TravelClient {
             travelImpl = TravelHelper.narrow(ncRef.resolve_str(name));
 
             System.out.println("Obtained a handle on server object: " + travelImpl);
-            System.out.println(travelImpl.find(0));
+            //System.out.println(travelImpl.find(0));
             double nhap;
             System.out.print("Nhap vao so luong dai Fibonacci: ");
             nhap = sc.nextDouble();

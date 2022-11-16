@@ -38,7 +38,7 @@ public class DBSource {
 
     public static ResultSet runQuery(String sqlQuery) throws Exception {
         try (Connection conn = DBSource.getConnection();
-                Statement stmt = conn.createStatement();) {
+                Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);) {
             ResultSet rs = stmt.executeQuery(sqlQuery);
             return rs;
         }
