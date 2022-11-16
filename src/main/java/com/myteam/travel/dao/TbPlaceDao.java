@@ -4,11 +4,14 @@
  */
 package com.myteam.travel.dao;
 
-import com.myteam.travel.db.DBSource;
+import TravelApp.place;
+import com.myteam.travel.db.ConnectMySQL;
 import com.myteam.travel.model.ResPlace;
-import com.myteam.travel.model.TbPlace;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,32 +22,111 @@ public class TbPlaceDao {
 
     public ResPlace list() {
         ResPlace resPlace = new ResPlace();
-        List<TbPlace> list = new LinkedList<>();
-        String sql = "select * from tbPlace";
-        String sqlUpdate = "update tbPlace set phone = '02411112223' where id = 1";
+
         ResultSet rs = null;
+        List<place> list = new ArrayList<>();
+        Connection connect = ConnectMySQL.getMySQLConnect();
         try {
-            int i = DBSource.runUpdate(sqlUpdate);
-            rs = DBSource.runQuery(sql);
+            String sql = "select * from tbPlace";
+            PreparedStatement pstm = connect.prepareStatement(sql);
+            pstm.executeQuery();
+            rs = pstm.executeQuery();
             while (rs.next()) {
-                TbPlace place = new TbPlace();
-                place.setId(rs.getInt("id"));
-                place.setName(rs.getString("name"));
-                place.setPhone(rs.getString("phone"));
-                place.setAddress(rs.getString("address"));
-                place.setInfo(rs.getString("info"));
-                place.setIdProvince(rs.getInt("IdProvince"));
+                place place = new place(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
                 list.add(place);
             }
+            resPlace.setItems(list);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         } finally {
             try {
                 rs.close();
-            } catch (Exception ignore) {
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        resPlace.setItems(list);
+
         return resPlace;
+    }
+
+    public boolean insert(place place) {
+        PreparedStatement pstm = null;
+        Connection connect = ConnectMySQL.getMySQLConnect();
+        try {
+            String sql = "insert into tbPlace VALUES(?,?,?,?,?)";
+            pstm = connect.prepareStatement(sql);
+            pstm.setString(1, place.getName());
+            pstm.setString(2, place.getPhone());
+            pstm.setString(3, place.getAdress());
+            pstm.setString(4, place.getInfor());
+            pstm.setInt(5, place.getId_province());
+            int i = pstm.executeUpdate();
+            if (i > 0) {
+                System.out.println("Thêm thành công");
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                pstm.close();
+                connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(int id_place) {
+        PreparedStatement pstm = null;
+        Connection connect = ConnectMySQL.getMySQLConnect();
+        try {
+            String sql = "delete from  tbPlace where id = ?)";
+            pstm = connect.prepareStatement(sql);
+            pstm.setInt(1, id_place);
+            int i = pstm.executeUpdate();
+            if (i > 0) {
+                System.out.println("xóa thành công");
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                pstm.close();
+                connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public List<place> queryPlace(String placeName) {
+        ResultSet rs = null;
+        List<place> list = new ArrayList<>();
+        Connection connect = ConnectMySQL.getMySQLConnect();
+        try {
+            String sql = "select * from tbPlace where name like ";
+            PreparedStatement pstm = connect.prepareStatement(sql);
+            pstm.setString(1, "%" + placeName + "%");
+            pstm.executeQuery();
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                place place = new place(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
+                list.add(place);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

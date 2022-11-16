@@ -47,6 +47,10 @@ public class TravelImpl extends TravelPOA {
     @Override
     public province findProvince() {
 
+        TbPlaceDao tbPlaceDao = new TbPlaceDao();
+        ResPlace resPlace = tbPlaceDao.list();
+
+        String result = resPlace.toJson().toString();
         return new province();
     }
 

@@ -31,4 +31,52 @@ public final class place implements org.omg.CORBA.portable.IDLEntity
     id_province = _id_province;
   } // ctor
 
+    public int getId_place() {
+        return id_place;
+    }
+
+    public void setId_place(int id_place) {
+        this.id_place = id_place;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getInfor() {
+        return infor;
+    }
+
+    public void setInfor(String infor) {
+        this.infor = infor;
+    }
+
+    public int getId_province() {
+        return id_province;
+    }
+
+    public void setId_province(int id_province) {
+        this.id_province = id_province;
+    }
+
 } // class place

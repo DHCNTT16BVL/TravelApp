@@ -4,6 +4,7 @@
  */
 package com.myteam.travel.model;
 
+import TravelApp.place;
 import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
  */
 public class ResPlace {
 
-    private List<TbPlace> items;
+    private List<place> items;
 
     public JSONObject toJson(){
         JSONObject json = new JSONObject();
@@ -24,8 +25,8 @@ public class ResPlace {
         List<JSONObject> navJSON = new LinkedList<>();
 
         if (items != null) {
-            for (TbPlace item : items) {
-                navJSON.add(item.toJson());
+            for (place item : items) {
+                //navJSON.add(item.toJson());
             }
             json.put("items", navJSON);
         }
@@ -33,11 +34,11 @@ public class ResPlace {
         return json;
     }
 
-    public List<TbPlace> getItems() {
+    public List<place> getItems() {
         return items;
     }
 
-    public void setItems(List<TbPlace> items) {
+    public void setItems(List<place> items) {
         this.items = items;
     }
 

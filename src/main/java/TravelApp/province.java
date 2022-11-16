@@ -23,4 +23,20 @@ public final class province implements org.omg.CORBA.portable.IDLEntity
     province = _province;
   } // ctor
 
+    public int getId_province() {
+        return id_province;
+    }
+
+    public void setId_province(int id_province) {
+        this.id_province = id_province;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
 } // class province
