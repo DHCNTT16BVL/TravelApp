@@ -7,8 +7,9 @@ package com.myteam.travel;
 import TravelApp.TravelPOA;
 import TravelApp.place;
 import TravelApp.province;
-import com.myteam.travel.dao.TbPlaceDao;
+import com.myteam.travel.dao.PlaceDao;
 import com.myteam.travel.model.ResPlace;
+import java.util.List;
 import org.omg.CORBA.ORB;
 
 /**
@@ -17,6 +18,7 @@ import org.omg.CORBA.ORB;
  */
 public class TravelImpl extends TravelPOA {
 
+    PlaceDao dao = new PlaceDao();
     private ORB orb;
 
     public void setORB(ORB orb_val) {
@@ -25,12 +27,22 @@ public class TravelImpl extends TravelPOA {
 
     @Override
     public boolean add(String placeName, String phone, String address, String info, int idProvince) {
-        return true;
+
+        place place = new place(1, placeName, phone, address, info, idProvince);
+        if (dao.insert(place)) {
+            return true;
+        }
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override
     public boolean delete(int id) {
-        return true;
+        if (dao.delete(id)) {
+            return true;
+        }
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override
@@ -47,19 +59,19 @@ public class TravelImpl extends TravelPOA {
     @Override
     public province findProvince() {
 
-        TbPlaceDao tbPlaceDao = new TbPlaceDao();
+        PlaceDao tbPlaceDao = new PlaceDao();
         ResPlace resPlace = tbPlaceDao.list();
 
         String result = resPlace.toJson().toString();
         return new province();
     }
 
-    public String find(int idProvince) {
-        TbPlaceDao tbPlaceDao = new TbPlaceDao();
-        ResPlace resPlace = tbPlaceDao.list();
-
-        String result = resPlace.toJson().toString();
-        return result;
+    public List<place> queryPlace(String placeName) {
+        List<place> list = dao.queryPlace(placeName);
+        if (list != null) {
+            return list;
+        }
+        return null;
     }
 
 }

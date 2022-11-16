@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author uoc
  */
-public class TbPlaceDao {
+public class PlaceDao {
 
     public ResPlace list() {
         ResPlace resPlace = new ResPlace();

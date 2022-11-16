@@ -8,6 +8,6 @@ package com.myteam.travel.dao;
  *
  * @author uoc
  */
-public class TbProvinceDao {
+public class ProvinceDao {
     
 }
