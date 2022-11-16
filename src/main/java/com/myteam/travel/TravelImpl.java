@@ -41,12 +41,7 @@ public class TravelImpl extends TravelPOA {
     }
 
     @Override
-    public int add(String locationName, String phonenumber, String note) {
-        return 1;
-    }
-
-    @Override
-    public int update(int id, String locationName, String phonenumber, String note) {
+    public int add(String placeName, String phone, String address, String info, int idProvince) {
         return 1;
     }
 
@@ -56,7 +51,12 @@ public class TravelImpl extends TravelPOA {
     }
 
     @Override
-    public String find(String locationName) {
+    public int update(int id, String placeName, String phone, String address, String info, int idProvince) {
+        return 1;
+    }
+
+    @Override
+    public String find(int idProvince) {
         return "result";
     }
 
