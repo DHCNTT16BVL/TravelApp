@@ -26,13 +26,13 @@ public class ConnectMySQL {
     }
 
     private static Connection getConnectMySQLWithParam(String hostName, String dbName, String username, String password) throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");//chỉ cần khi java 5 trở v�? trước
+        Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://" + hostName + ":3306/" + dbName;
         Connection connect = DriverManager.getConnection(url, username, password);
         return connect;
     }
 
-    public static void main(String[] args) {
-        getMySQLConnect();
-    }
+//    public static void main(String[] args) {
+//        getMySQLConnect();
+//    }
 }

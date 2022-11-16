@@ -19,18 +19,19 @@ public class ResPlace {
 
     private List<place> items;
 
-    public JSONObject toJson(){
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
         List<JSONObject> navJSON = new LinkedList<>();
 
         if (items != null) {
             for (place item : items) {
-                //navJSON.add(item.toJson());
+                JSONObject jsonObject1 = new JSONObject(item);
+                navJSON.add(jsonObject1);
             }
             json.put("items", navJSON);
         }
-       
+
         return json;
     }
 

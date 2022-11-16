@@ -15,9 +15,10 @@ import org.omg.CosNaming.NamingContextExtHelper;
  * @author uoc
  */
 public class TravelClient {
+
     static Travel travelImpl;
     static Scanner sc = new Scanner(System.in);
-    
+
     public static void main(String args[]) {
         try {
             // create and initialize the ORB
@@ -35,11 +36,12 @@ public class TravelClient {
             travelImpl = TravelHelper.narrow(ncRef.resolve_str(name));
 
             System.out.println("Obtained a handle on server object: " + travelImpl);
-            System.out.println(travelImpl.findProvince());
+            place[] places = travelImpl.find(0);
+            System.out.println(places);
             double nhap;
             System.out.print("Nhap vao so luong dai Fibonacci: ");
             nhap = sc.nextDouble();
-            System.out.print("Chuoi Fibonacci " + (int)nhap + " so la: ");
+            System.out.print("Chuoi Fibonacci " + (int) nhap + " so la: ");
             //String fi = travelImpl.fibonacci(nhap);
             //System.out.println(fi);
             //travelImpl.shutdown();

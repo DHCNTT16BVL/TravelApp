@@ -6,7 +6,6 @@ package com.myteam.travel.dao;
 
 import TravelApp.place;
 import com.myteam.travel.db.ConnectMySQL;
-import com.myteam.travel.model.ResPlace;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +19,7 @@ import java.util.List;
  */
 public class PlaceDao {
 
-    public ResPlace list() {
-        ResPlace resPlace = new ResPlace();
+    public place[] list() {
 
         ResultSet rs = null;
         List<place> list = new ArrayList<>();
@@ -35,7 +33,17 @@ public class PlaceDao {
                 place place = new place(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
                 list.add(place);
             }
-            resPlace.setItems(list);
+            place[] obj = new place[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                obj[i] = list.get(i);
+//                obj[i].setId_place(list.get(i).id_place);
+//                obj[i].setId_province(list.get(i).id_province);
+//                obj[i].setInfor(list.get(i).infor);
+//                obj[i].setName(list.get(i).name);
+//                obj[i].setPhone(list.get(i).phone);
+//                obj[i].setAdress(list.get(i).adress);
+            }
+            return obj;
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -46,7 +54,7 @@ public class PlaceDao {
             }
         }
 
-        return resPlace;
+        return null;
     }
 
     public boolean insert(place place) {
@@ -103,8 +111,9 @@ public class PlaceDao {
         return false;
     }
 
-    public List<place> queryPlace(String placeName) {
+    public place[] queryPlace(String placeName) {
         ResultSet rs = null;
+
         List<place> list = new ArrayList<>();
         Connection connect = ConnectMySQL.getMySQLConnect();
         try {
@@ -117,7 +126,17 @@ public class PlaceDao {
                 place place = new place(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6));
                 list.add(place);
             }
-            return list;
+            place[] obj = new place[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                obj[i] = list.get(i);
+//                obj[i].setId_place(list.get(i).id_place);
+//                obj[i].setId_province(list.get(i).id_province);
+//                obj[i].setInfor(list.get(i).infor);
+//                obj[i].setName(list.get(i).name);
+//                obj[i].setPhone(list.get(i).phone);
+//                obj[i].setAdress(list.get(i).adress);
+            }
+            return obj;
         } catch (Exception e) {
             System.out.println(e);
         } finally {
