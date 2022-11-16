@@ -11,23 +11,15 @@ import org.codehaus.jettison.json.JSONObject;
  *
  * @author uoc
  */
-public class TbPlace {
+public class TbProvince {
 
     private int id;
     private String name;
-    private String phone;
-    private String address;
-    private String info;
-    private int idProvince;
 
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("id", id);
         json.put("name", name);
-        json.put("phone", phone);
-        json.put("address", address);
-        json.put("info", info);
-        json.put("idProvince", idProvince);
 
         return json;
     }
