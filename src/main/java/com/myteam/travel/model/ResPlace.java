@@ -6,8 +6,9 @@ package com.myteam.travel.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONObject;
+//import org.codehaus.jettison.json.JSONException;
+//import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -17,7 +18,7 @@ public class ResPlace {
 
     private List<TbPlace> items;
 
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson(){
         JSONObject json = new JSONObject();
 
         List<JSONObject> navJSON = new LinkedList<>();

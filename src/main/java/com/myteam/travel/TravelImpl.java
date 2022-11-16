@@ -64,7 +64,8 @@ public class TravelImpl extends TravelPOA {
         TbPlaceDao tbPlaceDao = new TbPlaceDao();
         ResPlace resPlace = tbPlaceDao.list();
 
-        return "result";
+        String result = resPlace.toJson().toString();
+        return result;
     }
 
     // implement shutdown() method

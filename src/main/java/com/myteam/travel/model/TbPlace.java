@@ -4,8 +4,8 @@
  */
 package com.myteam.travel.model;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONObject;
+
 
 /**
  *
@@ -20,7 +20,7 @@ public class TbPlace {
     private String info;
     private int idProvince;
 
-    public JSONObject toJson() throws JSONException {
+    public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("id", id);
         json.put("name", name);
