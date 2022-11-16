@@ -6,16 +6,19 @@ package com.myteam.travel.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
  * @author uoc
  */
 public class DBSource {
+
     private static String dbURL = "jdbc:mysql://103.130.213.10:3306/TravelApp";
     private static String userName = "cxluser";
-    private static String password ="Thanh0974135042!";
-    
+    private static String password = "Thanh0974135042!";
+
     public DBSource() {
 
     }
@@ -31,5 +34,20 @@ public class DBSource {
             ex.printStackTrace();
         }
         return conn;
+    }
+
+    public static ResultSet runQuery(String sqlQuery) throws Exception {
+        try (Connection conn = DBSource.getConnection();
+                Statement stmt = conn.createStatement();) {
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+            return rs;
+        }
+    }
+
+    public static int runUpdate(String sqlQuery) throws Exception {
+        try (Connection conn = DBSource.getConnection();
+                Statement stmt = conn.createStatement();) {
+            return stmt.executeUpdate(sqlQuery);
+        }
     }
 }
