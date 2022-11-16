@@ -4,6 +4,8 @@
  */
 package com.myteam.travel.model;
 
+import java.util.LinkedList;
+import java.util.List;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -11,32 +13,31 @@ import org.codehaus.jettison.json.JSONObject;
  *
  * @author uoc
  */
-public class TbProvince {
+public class ResPlace {
 
-    private int id;
-    private String name;
+    private List<TbPlace> items;
 
     public JSONObject toJson() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("id", id);
-        json.put("name", name);
 
+        List<JSONObject> navJSON = new LinkedList<>();
+
+        if (items != null) {
+            for (TbPlace item : items) {
+                navJSON.add(item.toJson());
+            }
+            json.put("items", navJSON);
+        }
+       
         return json;
     }
 
-    public int getId() {
-        return id;
+    public List<TbPlace> getItems() {
+        return items;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setItems(List<TbPlace> items) {
+        this.items = items;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

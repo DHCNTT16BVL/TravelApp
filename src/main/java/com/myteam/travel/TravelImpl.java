@@ -5,6 +5,10 @@
 package com.myteam.travel;
 
 import TravelApp.TravelPOA;
+import com.myteam.travel.dao.TbPlaceDao;
+import com.myteam.travel.model.ResPlace;
+import com.myteam.travel.model.TbPlace;
+import java.util.List;
 import org.omg.CORBA.ORB;
 
 /**
@@ -57,6 +61,9 @@ public class TravelImpl extends TravelPOA {
 
     @Override
     public String find(int idProvince) {
+        TbPlaceDao tbPlaceDao = new TbPlaceDao();
+        ResPlace resPlace = tbPlaceDao.list();
+
         return "result";
     }
 
