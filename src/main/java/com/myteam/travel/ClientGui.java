@@ -7,9 +7,10 @@ package com.myteam.travel;
 import TravelApp.Travel;
 import TravelApp.TravelHelper;
 import TravelApp.place;
-import static com.myteam.travel.TravelClient.travelImpl;
+import TravelApp.province;
+import com.myteam.travel.common.Helper;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -27,6 +28,22 @@ public class ClientGui extends javax.swing.JFrame {
      */
     public ClientGui() {
         initComponents();
+        loadData();
+        loadGrid();
+    }
+
+    public void loadData() {
+
+        province[] provinces = travelImpl.showAllProvince();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.removeAllElements();
+
+        model.addElement(new ComboKeyValue("ALL", ""));
+        for (province item : provinces) {
+            model.addElement(new ComboKeyValue(item.getProvince(), String.valueOf(item.getId_province())));
+        }
+
+        cbxProvince.setModel(model);
 
     }
 
@@ -42,7 +59,7 @@ public class ClientGui extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gridData = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxProvince = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -67,7 +84,7 @@ public class ClientGui extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(gridData);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxProvince.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSearch.setText("Tìm kiếm");
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,7 +122,7 @@ public class ClientGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSearch))
                     .addGroup(layout.createSequentialGroup()
@@ -122,7 +139,7 @@ public class ClientGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
@@ -131,9 +148,17 @@ public class ClientGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        // TODO add your handling code here:
-        place[] places = travelImpl.find(0);
+    private void loadGrid(){
+        int idProvince = 0;
+        ComboKeyValue itemSelected = (ComboKeyValue)cbxProvince.getSelectedItem();
+        String province = itemSelected.getValue();
+
+        if (!"".equals(province)) {
+            if (Helper.TryParseInt(province) != null) {
+                idProvince = Helper.TryParseInt(province);
+            }
+        }
+        place[] places = travelImpl.find(idProvince);
         DefaultTableModel model = (DefaultTableModel) gridData.getModel();;
         model.getDataVector().removeAllElements();
         for (place item : places) {
@@ -143,6 +168,10 @@ public class ClientGui extends javax.swing.JFrame {
 
         }
         gridData.setModel(model);
+    }
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
+        loadGrid();
     }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -205,8 +234,8 @@ public class ClientGui extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cbxProvince;
     private javax.swing.JTable gridData;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

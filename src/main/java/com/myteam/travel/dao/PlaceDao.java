@@ -19,13 +19,18 @@ import java.util.List;
  */
 public class PlaceDao {
 
-    public place[] list() {
+    public place[] list(int idProvince) {
 
         ResultSet rs = null;
         List<place> list = new ArrayList<>();
         Connection connect = ConnectMySQL.getMySQLConnect();
         try {
-            String sql = "select * from tbPlace";
+            String sql = "select * from tbPlace ";
+            String where = " where 1= 1 ";
+            if (idProvince > 0) {
+                where += " AND idProvince = " + idProvince;
+            }
+            sql += where;
             PreparedStatement pstm = connect.prepareStatement(sql);
             pstm.executeQuery();
             rs = pstm.executeQuery();

@@ -66,12 +66,12 @@ public class ProvinceDao {
         return false;
     }
 
-    public List<province> queryProvince() {
+    public province[] queryProvince() {
         ResultSet rs = null;
         List<province> list = new ArrayList<>();
         Connection connect = ConnectMySQL.getMySQLConnect();
         try {
-            String sql = "select * from tbPlace ";
+            String sql = "select * from tbProvince ";
             PreparedStatement pstm = connect.prepareStatement(sql);
             pstm.executeQuery();
             rs = pstm.executeQuery();
@@ -79,7 +79,11 @@ public class ProvinceDao {
                 province place = new province(rs.getInt(1), rs.getString(2));
                 list.add(place);
             }
-            return list;
+            province[] obj = new province[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                obj[i] = list.get(i);
+            }
+            return obj;
         } catch (Exception e) {
             System.out.println(e);
         } finally {

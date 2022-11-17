@@ -77,9 +77,9 @@ public class TravelImpl extends TravelPOA {
     @Override
     public province[] showAllProvince() {
 
-        List<province> list = provincedao.queryProvince();
-        if (list != null) {
-            return (province[]) list.toArray();
+        province[] items = provincedao.queryProvince();
+        if (items != null) {
+            return items;
         }
         return null;
     }
@@ -87,8 +87,7 @@ public class TravelImpl extends TravelPOA {
     @Override
     public place[] find(int idProvince) {
 
-        PlaceDao tbPlaceDao = new PlaceDao();
-        place[] items = tbPlaceDao.list();
+        place[] items = placedao.list(idProvince);
 
         if (items != null) {
 
