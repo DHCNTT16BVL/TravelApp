@@ -4,8 +4,15 @@
  */
 package com.myteam.travel;
 
-import javax.swing.JOptionPane;
-
+import TravelApp.Travel;
+import TravelApp.TravelHelper;
+import TravelApp.place;
+import static com.myteam.travel.TravelClient.travelImpl;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
 /**
  *
@@ -13,11 +20,14 @@ import javax.swing.JOptionPane;
  */
 public class ClientGui extends javax.swing.JFrame {
 
+    static Travel travelImpl;
+
     /**
      * Creates new form Gui
      */
     public ClientGui() {
         initComponents();
+
     }
 
     /**
@@ -123,7 +133,16 @@ public class ClientGui extends javax.swing.JFrame {
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // TODO add your handling code here:
+        place[] places = travelImpl.find(0);
+        DefaultTableModel model = (DefaultTableModel) gridData.getModel();;
+        model.getDataVector().removeAllElements();
+        for (place item : places) {
 
+            Object[] obj = {item.getName(), item.getPhone(), item.getAdress(), item.getInfor()};
+            model.addRow(obj);
+
+        }
+        gridData.setModel(model);
     }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -134,6 +153,7 @@ public class ClientGui extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -158,12 +178,29 @@ public class ClientGui extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClientGui().setVisible(true);
-            }
-        });
+        try {
+            ORB orb = ORB.init(args, null);
+
+            // get the root naming context
+            org.omg.CORBA.Object objRef
+                    = orb.resolve_initial_references("NameService");
+            // Use NamingContextExt instead of NamingContext. This is 
+            // part of the Interoperable naming Service.  
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            String name = "Travel";
+            travelImpl = TravelHelper.narrow(ncRef.resolve_str(name));
+
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+
+                    new ClientGui().setVisible(true);
+                }
+            });
+        } catch (Exception e) {
+
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

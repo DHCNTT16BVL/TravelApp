@@ -15,7 +15,6 @@
                 <exec.appArgs>-ORBInitialPort 1050</exec.appArgs>
                 <exec.mainClass>com.myteam.travel.TravelServer</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -34,7 +33,6 @@
                 <exec.mainClass>com.myteam.travel.TravelServer</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -52,7 +50,6 @@
                 <exec.mainClass>com.myteam.travel.TravelServer</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <exec.appArgs>-ORBInitialPort 1050</exec.appArgs>
-                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
     </actions>

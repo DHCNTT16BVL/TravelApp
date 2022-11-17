@@ -7,10 +7,8 @@ package com.myteam.travel;
 import TravelApp.TravelPOA;
 import TravelApp.place;
 import TravelApp.province;
-import com.google.common.collect.Iterables;
 import com.myteam.travel.dao.PlaceDao;
 import com.myteam.travel.dao.ProvinceDao;
-import com.myteam.travel.model.ResPlace;
 import java.util.List;
 import org.omg.CORBA.ORB;
 
@@ -28,21 +26,6 @@ public class TravelImpl extends TravelPOA {
     PlaceDao placedao = new PlaceDao();
     ProvinceDao provincedao = new ProvinceDao();
 
-//    public List<place> queryPlace(String placeName) {  // Tìm kiếm địa điểm theo tên
-//        List<place> list = placedao.queryPlace(placeName);
-//        if (list != null) {
-//            return list;
-//        }
-//        return null;
-//    }
-//
-//    public List<province> showAllProvince() { // Hiển thị toàn bộ Tỉnh thành
-//        List<province> list = provincedao.queryProvince();
-//        if (list != null) {
-//            return list;
-//        }
-//        return null;
-//    }
     @Override
     public boolean add(String placeName, String phone, String address, String info, int idProvince) { // thêm địa điểm mới
 

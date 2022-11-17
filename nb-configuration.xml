@@ -19,9 +19,9 @@ Any value defined here will override the pom.xml file value but is only applicab
     </properties>
     <config-data xmlns="http://www.netbeans.org/ns/maven-config-data/1">
         <configurations>
-            <configuration id="ClientApp" profiles=""/>
             <configuration id="ServerApp" profiles=""/>
-            <configuration id="GUI" profiles=""/>
+            <configuration id="ClientApp" profiles=""/>
+            <configuration id="ClientGui" profiles=""/>
         </configurations>
     </config-data>
 </project-shared-configuration>

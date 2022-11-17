@@ -37,7 +37,7 @@ public class TravelClient {
 
             System.out.println("Obtained a handle on server object: " + travelImpl);
             place[] places = travelImpl.find(0);
-            System.out.println(places);
+            System.out.println(places.toString());
             double nhap;
             System.out.print("Nhap vao so luong dai Fibonacci: ");
             nhap = sc.nextDouble();
