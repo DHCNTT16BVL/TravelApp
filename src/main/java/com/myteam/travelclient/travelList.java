@@ -1,38 +1,37 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.myteam.travel;
+package com.myteam.travelclient;
 
 import TravelApp.Travel;
-import TravelApp.TravelHelper;
 import TravelApp.place;
 import TravelApp.province;
 import com.myteam.travel.common.Helper;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
 
 /**
  *
  * @author uoc
  */
-public class ClientGui extends javax.swing.JFrame {
+public class travelList extends javax.swing.JPanel {
 
-    static Travel travelImpl;
+    Travel travelImpl;
 
     /**
-     * Creates new form Gui
+     * Creates new form travelList
      */
-    public ClientGui() {
+    public travelList(Travel travelImpl) {
         initComponents();
+
+        this.travelImpl = travelImpl;
+
         loadData();
         loadGrid();
     }
 
-    public void loadData() {
+    private void loadData() {
 
         province[] provinces = travelImpl.showAllProvince();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
@@ -56,18 +55,15 @@ public class ClientGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gridData = new javax.swing.JTable();
         cbxProvince = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel2.setText("QUẢN LÝ ĐỊA ĐIỂM DU LỊCH");
 
         jLabel1.setText("Tỉnh");
 
@@ -98,37 +94,23 @@ public class ClientGui extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
-        jLabel2.setText("QUẢN LÝ ĐỊA ĐIỂM DU LỊCH");
-
-        jMenu1.setText("Danh sách");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Thêm");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Thông tin");
-        jMenuBar1.add(jMenu3);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSearch))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel2)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                        .addComponent(btnSearch)))
+                .addContainerGap(140, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -136,21 +118,25 @@ public class ClientGui extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbxProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadGrid(){
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
+        loadGrid();
+    }//GEN-LAST:event_btnSearchMouseClicked
+
+    private void loadGrid() {
         int idProvince = 0;
-        ComboKeyValue itemSelected = (ComboKeyValue)cbxProvince.getSelectedItem();
+        ComboKeyValue itemSelected = (ComboKeyValue) cbxProvince.getSelectedItem();
         String province = itemSelected.getValue();
 
         if (!"".equals(province)) {
@@ -159,8 +145,8 @@ public class ClientGui extends javax.swing.JFrame {
             }
         }
         place[] places = travelImpl.find(idProvince);
-        DefaultTableModel model = (DefaultTableModel) gridData.getModel();;
-        model.getDataVector().removeAllElements();
+        DefaultTableModel model = (DefaultTableModel) gridData.getModel();
+        model.setRowCount(0);
         for (place item : places) {
 
             Object[] obj = {item.getName(), item.getPhone(), item.getAdress(), item.getInfor()};
@@ -169,68 +155,11 @@ public class ClientGui extends javax.swing.JFrame {
         }
         gridData.setModel(model);
     }
-    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
-        // TODO add your handling code here:
-        loadGrid();
-    }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        try {
-            ORB orb = ORB.init(args, null);
-
-            // get the root naming context
-            org.omg.CORBA.Object objRef
-                    = orb.resolve_initial_references("NameService");
-            // Use NamingContextExt instead of NamingContext. This is 
-            // part of the Interoperable naming Service.  
-            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-            String name = "Travel";
-            travelImpl = TravelHelper.narrow(ncRef.resolve_str(name));
-
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-
-                    new ClientGui().setVisible(true);
-                }
-            });
-        } catch (Exception e) {
-
-        }
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
@@ -238,10 +167,6 @@ public class ClientGui extends javax.swing.JFrame {
     private javax.swing.JTable gridData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
